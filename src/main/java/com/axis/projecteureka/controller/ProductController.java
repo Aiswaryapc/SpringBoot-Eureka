@@ -8,9 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.axis.projecteureka.entity.Category;
 import com.axis.projecteureka.entity.Product;
 import com.axis.projecteureka.service.ProductService;
+
 
 @RestController
 @RequestMapping("/product")
@@ -18,6 +21,8 @@ public class ProductController {
 
     @Autowired
     ProductService productService; 
+    @Autowired
+	private RestTemplate restTemplate;
 
     // list all the products
     @GetMapping("/")
@@ -25,6 +30,14 @@ public class ProductController {
         List<Product> product = productService.listProducts();
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
+    
+    
+    @GetMapping("/category/")
+	public List<Category> getAllCategories(){
+		String url = "http://project-eureka-integration/movies";
+		List<Category> categoryList = restTemplate.getForObject(url, List.class);
+		return categoryList;
+	}
 
    
 }
