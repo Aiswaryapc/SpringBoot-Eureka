@@ -43,7 +43,7 @@ public class UserController {
     }
     @GetMapping("/category/")
 	public List<Category> getAllCategories(){
-		String url = "http://project-eureka-integration/movies";
+		String url = "http://project-eureka-integration/category/";
 		List<Category> categoryList = restTemplate.getForObject(url, List.class);
 		return categoryList;
 	}
